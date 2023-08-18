@@ -1,0 +1,782 @@
+*,
+*::after,
+*::before {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+/* import of font ubuntu */
+@font-face {
+    font-family: 'Ubuntu Condensed';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url(../assets/fonts/ubuntu.woff2) format('woff2');
+}
+
+/* variables for root */
+:root {
+    --primary: #f0eee9;
+    --secondary: #000000;
+    --primary-light: #fff;
+    --secondary-light: #5c5c5c;
+    --primary-background-details: #5c5c5c51;
+    --font-cart-status: 1rem;
+    --font-small: 1.2rem;
+    --font: 1.4rem;
+    --font-mid-medium: 1.6rem;
+    --font-medium: 1.8rem;
+    --font-big: 2.2rem;
+    --font-big2: 3rem;
+    --font-extra-big: 4.4rem;
+    --font-weigth-soft: 500;
+    --font-weigth-medium: 600;
+    --header-heigth: 10vh;
+    --cart-status-color: red;
+
+}
+
+/* variables in darktheme */
+.dark-mode {
+    --primary: #000000;
+    --secondary: #f0eee9;
+    --primary-light: #0c0c0c;
+    --secondary-light: #c9c0c0;
+    --primary-background-details: #4d4d4d51;
+    --cart-status-color: red;
+}
+
+/* size fonts on all html */
+html {
+    font-size: 62.5%;
+
+    font-family: 'Ubuntu Condensed', sans-serif;
+}
+
+/* color to the body */
+body {
+    background-color: var(--primary);
+}
+
+/* size width and height of header */
+header {
+    width: 100%;
+    height: auto;
+}
+
+/* size of navbar and display and position */
+header nav {
+    width: 100%;
+    height: var(--header-heigth);
+    display: flex;
+    align-items: center;
+    padding: 0 4px;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: var(--primary-light);
+    position: fixed;
+    z-index: 2;
+}
+
+/* decoration to the ancors */
+a {
+    text-decoration: none;
+    color: var(--secondary);
+}
+
+/* style of the list navbar an display */
+header nav ul.nav--list {
+    list-style-type: none;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+/* size of texts and icons from navbar lists */
+header nav ul .icons {
+    font-size: var(--font);
+    font-weight: var(--font-weigth-medium);
+    text-align: center;
+    position: relative;
+    color: var(--secondary);
+}
+
+/* cart status */
+header nav ul .icons .cart-status {
+    position: absolute;
+    top: 0;
+    right: -6px;
+    background-color: var(--cart-status-color);
+    color: white;
+    font-size: var(--font-cart-status);
+    font-family: sans-serif;
+    font-weight: var(--font-weigth-medium);
+    padding: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 15px;
+    height: 15px;
+    text-align: center;
+    border-radius: 10px;
+}
+
+/* on mouse position cursor transform in hand touch */
+.cursor {
+    cursor: pointer;
+}
+
+/* size of slidebar hidden */
+ul.navigation {
+    position: fixed;
+    top: var(--header-heigth);
+    bottom: 0;
+    right: -250px;
+    width: 250px;
+    background-color: var(--primary-light);
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    padding: 20px;
+    font-size: var(--font);
+    font-weight: var(--font-weigth-medium);
+    transition: all .5s;
+}
+
+/* navbar slidebar show*/
+ul.navigation.show {
+    right: 0;
+    transition: all .5s;
+}
+
+/* navbar close background hidden */
+.nav-close-out {
+    position: fixed;
+    top: var(--header-heigth);
+    bottom: 0;
+    left: 0;
+    width: 0;
+    background-color: var(--primary-background-details);
+    transition: all .5s;
+}
+
+/* navbar close background show */
+.nav-close-out.show {
+    right: 250px;
+    width: 90%;
+    transition: all .5s;
+}
+
+/* styles of slidebar cart */
+.nav-slide-cart {
+    position: fixed;
+    top: var(--header-heigth);
+    bottom: 0;
+    right: -320px;
+    width: 320px;
+    background-color: var(--primary);
+    display: grid;
+    grid-template-rows: 5% 60% 7% 1fr 1fr;
+    gap: 10px;
+    padding: 5px 10px 10px 10px;
+    transition: all .5s;
+}
+
+.nav-slide-cart.show {
+    right: 0;
+    ;
+    transition: all .5s;
+}
+
+/* style of header card slidebar */
+.headercart {
+    display: grid;
+    grid-template-columns: 90% 10%;
+    grid-row: 1/2;
+}
+
+/* position h3 */
+.headercart h3 {
+    grid-column: 1/2;
+    color: var(--secondary);
+    font-size: var(--font-big);
+}
+
+/* position close cart slidebar */
+.headercart .close_cart {
+    grid-column: 2/3;
+    background-color: var(--secondary-light);
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+
+}
+
+body button:hover {
+    background-color: var(--secondary);
+    color: var(--primary-light);
+}
+
+/* close cart icon in a hover */
+.headercart .close_cart:hover,
+.products-list .details-of-product .icon:hover {
+    background-color: var(--secondary);
+    color: var(--primary-light);
+}
+
+/* list of cart products */
+.nav-slide-cart .products-list {
+    overflow-y: scroll;
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    grid-row: 2/3;
+    gap: 5px;
+}
+
+/* diplay to scrollbar of cartlist */
+.products-list::-webkit-scrollbar {
+    display: none;
+}
+
+/* card of cart products */
+.products-list article {
+    border-radius: 10px;
+    display: grid;
+    width: 100%;
+    grid-template-columns: 18% 65% 10%;
+    grid-template-rows: 80% 18%;
+    gap: 5px;
+    background-color: var(--primary);
+    position: relative;
+}
+
+/* size of image container on cart container list */
+.products-list .img-container {
+    grid-column: 1/2;
+    grid-row: 1/3;
+    height: 80px;
+    position: relative;
+}
+
+/* this ize of ima on image container */
+.products-list .img-container img {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    border: var(--secondary-light) 1px solid;
+}
+
+/* position of price of product in cart list */
+.products-list .img-container .price {
+    font-size: var(--font-big);
+    background-color: var(--secondary-light);
+    color: var(--primary-light);
+    position: absolute;
+    bottom: 1px;
+    left: 1px;
+    border-radius: 0 5px 0 0;
+}
+
+/* size and position details of products in grid  */
+.products-list .details-of-product {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 90% 10%;
+    grid-column: 2/3;
+}
+
+/* position of title of products into cart */
+.products-list .details-of-product .title {
+    grid-column: 1/3;
+    grid-row: 1/2;
+    color: var(--secondary);
+    font-size: var(--font-mid-medium);
+}
+
+/* position of stock cant into cart list articles */
+.products-list .details-of-product .stock {
+    grid-column: 1/2;
+    grid-row: 2/3;
+    font-size: var(--font);
+    color: var(--secondary-light);
+}
+
+/* choose cantidad container of stock display and position */
+.products-list .details-of-product .cant {
+    grid-column: 2/3;
+    grid-row: 2/3;
+    gap: 4px;
+    display: flex;
+    flex-direction: row;
+}
+
+/* size of input choose cant into cartlist articles */
+.products-list .details-of-product .icon,
+.products-list .details-of-product span {
+    width: 20px;
+    height: 20px;
+    border-style: none;
+    background-color: var(--primary);
+    border: var(--secondary) 1px solid;
+    border-radius: 4px;
+    color: var(--secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--font);
+}
+
+/* position trash icon  */
+.products-list .trash-and-total {
+    grid-column: 3/4;
+    grid-row: 1/3;
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    color: var(--secondary);
+    font-size: var(--font-mid-medium);
+}
+
+/* color and size of trash icon */
+.products-list .trash-product {
+    color: var(--secondary);
+    font-size: var(--font-big2);
+}
+
+/* container of discount cupon */
+.code-desc {
+    display: flex;
+    grid-row: 3/4;
+    justify-content: center;
+}
+
+/* boders and pading of cupons */
+.code-desc input[type="text"],
+.code-desc button {
+    border-style: none;
+    font-size: var(--font-medium);
+    display: inline-block;
+    padding: 6px;
+}
+
+/* background and border radius of cupon input */
+.code-desc input[type="text"] {
+    background-color: var(--primary-background-details);
+    color: var(--secondary);
+    border-radius: 5px 0 0 5px;
+    width: 200px;
+}
+
+/* background and radius of button of cupon */
+.code-desc button {
+    background-color: var(--secondary-light);
+    color: var(--primary-light);
+    border-radius: 0 5px 5px 0;
+}
+
+/* size and display of total panel */
+.total {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    font-size: var(--font);
+    grid-row: 4/5;
+    color: var(--secondary);
+}
+
+.total p {
+    width: 50%;
+    text-align: end;
+}
+
+.total p.title {
+    width: 50%;
+    font-weight: var(--font-weigth-medium);
+}
+
+.nav-cart-buttons-container {
+    grid-row: 5/6;
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
+
+/* buttons of cart background and display */
+.nav-cart-buttons-container button {
+    border-style: none;
+    background-color: var(--secondary-light);
+    display: flex;
+    height: 40px;
+    color: var(--primary-light);
+    padding: 5px;
+    border-radius: 10px;
+    font-size: var(--font-medium);
+    align-items: center;
+}
+
+/* size of the main, display and padding top for resolve position fixed of navbar */
+main {
+    padding: 12vh 0;
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    position: relative;
+}
+
+/* size, aling and color of the h1  */
+main h1 {
+    color: var(--secondary);
+    font-size: var(--font-big);
+    text-align: center;
+}
+
+/* size of products container and display */
+main .main--products-container {
+    width: 90%;
+    min-width: 288px;
+    margin: 0 auto;
+    gap: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+/* size of the cards  and color */
+.cards {
+    width: 260px;
+    height: 400px;
+    background-color: var(--primary-light);
+    position: relative;
+    overflow: hidden;
+}
+
+/* size and before of image container */
+.cards .image--container {
+    width: 100%;
+    height: 320px;
+    z-index: 0;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.cards .image--container::before {
+    content: "";
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(10deg, rgba(0, 0, 255, 0.316), rgba(255, 0, 0, 0.251));
+    position: absolute;
+    z-index: -1;
+}
+
+/* style for tag product sold out */
+.sold-out {
+    width: 100px;
+    height: 40px;
+    font-size: var(--font-big);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0 0 10px 0;
+    background: linear-gradient(180deg, rgba(232, 4, 4, 1) 0%, rgba(5, 31, 61, 1) 100%);
+    position: absolute;
+    top: 0px;
+    z-index: 2;
+}
+
+/* size of the images into cards */
+.cards img {
+    width: 100%;
+    height: 100%;
+    background-color: var(--primary);
+    transition: all .3s;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+/* when hover cards changed to transparency and look at button */
+.cards:hover .img__prod {
+    background-color: transparent;
+    top: -2px;
+    transition: all .3s;
+}
+
+/* button cards visibility when cursor hover */
+.cards:hover .cards__buttons-container {
+    opacity: 1;
+    transition: all .3s;
+    z-index: 0;
+}
+
+/* details up to when hover */
+.cards:hover .product-props {
+    bottom: 0;
+    transition: all .3s;
+}
+
+/* size of product properties and your display */
+.product-props {
+    transition: all .3s;
+    width: 100%;
+    height: auto;
+    gap: 9px;
+    padding: 24px;
+    display: flex;
+    flex-wrap: wrap;
+    position: absolute;
+    bottom: -120px;
+    background-color: var(--primary-light);
+}
+
+/* size and position of buttons of cards */
+.cards__buttons-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    position: absolute;
+    width: 100%;
+    opacity: 0;
+    transition: all .3s;
+    top: 45px;
+    z-index: -1;
+}
+
+/* size of cards buttons */
+.cards__buttons-container button {
+    width: 150px;
+    height: auto;
+    padding: 10px;
+    margin: 0 auto;
+    border-radius: 10px;
+    background-color: white;
+    font-size: var(--font);
+    font-weight: var(--font-weigth-medium);
+    border-style: none;
+}
+
+/* size and color of the h3 into cards */
+.product-props h3 {
+    width: 70%;
+    font-weight: 400;
+    font-size: var(--font-medium);
+    color: var(--secondary);
+}
+
+/* size, color and weight of price */
+.product-props .price {
+    width: 20%;
+    font-size: var(--font-big);
+    font-weight: var(--font-weigth-soft);
+    color: var(--secondary);
+}
+
+/* size, color and weight of category*/
+.product-props .category {
+    width: 40%;
+    font-size: var(--font);
+    color: var(--secondary-light);
+    font-weight: 500;
+}
+
+/* size, color and weight of stock*/
+.product-props .stock {
+    width: 50%;
+    text-align: end;
+    font-size: var(--font);
+    color: var(--secondary-light);
+    font-weight: 400;
+}
+
+/* size, color and weight of titles */
+.product-props .title {
+    width: 100%;
+    font-size: var(--font);
+    color: var(--secondary);
+    font-weight: var(--font-weigth-soft);
+}
+
+/* size, color and weight of clothes sizes*/
+.product-props .sizes {
+    width: 100%;
+    font-size: var(--font);
+    color: var(--secondary-light);
+    font-weight: var(--font-weigth-soft);
+}
+
+/* size of colors container*/
+.product-props .colors-container {
+    width: 100%;
+    display: flex;
+    gap: 10px;
+}
+
+/* sizes of color cubes */
+.product-props .cube-color {
+    width: 2rem;
+    height: 2rem;
+    border: 1px solid var(--secondary);
+}
+
+/* color of cubes */
+.red {
+    background-color: red;
+}
+
+.gray {
+    background-color: gray;
+}
+
+.green {
+    background-color: green;
+}
+
+.blue {
+    background-color: blue;
+}
+
+.yellow {
+    background-color: yellow;
+}
+
+.black {
+    background-color: black;
+}
+
+.white {
+    background-color: white;
+}
+
+/* finish color of the cubes  and start panel of details*/
+.panelDetails {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 2;
+    background-color: var(--primary-background-details);
+}
+
+.panelDetailsClose {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--primary-background-details);
+}
+
+/* size of card details */
+.panelDetails .panelDetails--card {
+    width: 90%;
+    height: 100vh;
+    min-width: 250px;
+    max-width: 400px;
+    margin: 0 auto;
+    background-color: var(--primary);
+    position: relative;
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+    padding: 10px;
+}
+
+/* size of img of card detail */
+.panelDetails .panelDetails--card img {
+    width: 100%;
+    height: 50vh;
+    position: relative;
+}
+
+/* position close panel detail button */
+.panelDetails .panelDetails--card .close_button {
+    position: absolute;
+    background-color: var(--secondary-light);
+    color: var(--primary-light);
+    font-size: var(--font-extra-big);
+    font-weight: var(--font-weigth-medium);
+    top: 0;
+    right: 0;
+    padding: 2px;
+    border-radius: 0 0 0 10px;
+}
+
+/* hover close button panel */
+.panelDetails .panelDetails--card .close_button:hover,
+.panelDetails .panelDetails--card .detail-addToCart:hover {
+    background-color: var(--secondary);
+}
+
+/* size add to cart into card detail  */
+.panelDetails .panelDetails--card .detail-addToCart {
+    width: auto;
+    height: auto;
+    align-self: self-start;
+    padding: 3px;
+    border-radius: 10px;
+    font-size: var(--font);
+    display: flex;
+    align-items: center;
+    background-color: var(--secondary-light);
+    color: var(--primary-light);
+    font-weight: var(--font-weigth-medium);
+}
+
+/* sizes of details product  */
+.panelDetails .panelDetails--card .details--product {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    color: var(--secondary);
+}
+
+/* sizes of title into destails */
+.panelDetails .panelDetails--card .details--product h3 {
+    font-size: var(--font-big);
+    font-weight: var(--font-weigth-soft);
+    width: 75%;
+    color: var(--secondary);
+}
+
+/* sizes of price into destails */
+.panelDetails .panelDetails--card .details--product .price {
+    font-size: var(--font-big);
+    font-weight: var(--font-weigth-medium);
+    width: 20%;
+    color: var(--secondary);
+    text-align: end;
+}
+
+/* sizes of title h3 into destails */
+.panelDetails .panelDetails--card .details--product .title {
+    font-size: var(--font);
+    font-weight: var(--font-weigth-soft);
+    letter-spacing: 1px;
+}
+
+/* sizes of category into destails */
+.panelDetails .panelDetails--card .details--product .category {
+    font-size: var(--font);
+    font-weight: var(--font-weigth-medium);
+    color: var(--secondary-light);
+    width: 45%;
+}
+
+/* sizes of stock into destails */
+.panelDetails .panelDetails--card .details--product .stock {
+    font-size: var(--font);
+    font-weight: var(--font-weigth-medium);
+    color: var(--secondary-light);
+    width: 45%;
+}
